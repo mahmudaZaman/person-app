@@ -1,50 +1,53 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 const URL_USERS = 'https://jsonplaceholder.typicode.com/users'
 
 class Users extends Component {
   constructor(props){
     super(props);
-
     this.state = {
-      loading: true,
       users: []
     }
   }
 
   componentDidMount() {
-    fetch(URL_USERS).then(response =>
-      response.json().then(users => {
-        setTimeout(() => this.setState({ loading: false, users }), 1000);
+   this.getUsers();
+  }
+
+  getUsers = () => {
+    fetch(URL_USERS)
+      .then(response =>response.json()
+      .then(users => { this.setState({ users });
       })
     );
   }
 
   render() {
+    const userItems = this.state.users.map(user => (
+      <tr key={user.id}>
+        <td>{user.name}</td>
+        <td>{user.email}</td>
+        <td>
+          <Link to={`/users/${user.id}`}>Details</Link>
+        </td>
+      </tr>
+    ))
+
     return (
-      <BrowserRouter>
       <div>
+        <h4>User List</h4>
         <table>
           <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-          </tr>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+            </tr>
           </thead>
           <tbody>
-          {this.state.users.map(user => (
-            <tr key={user.id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>
-                <Link to={`/users/${user.id}`}>Details</Link>
-              </td>
-            </tr>
-          ))}
+            {userItems}
           </tbody>
         </table>
       </div>
-      </BrowserRouter>
     );
   }
 }
