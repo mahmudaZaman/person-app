@@ -54,33 +54,33 @@ import { Link } from 'react-router-dom';
     render() {
     let comments = null;
     if(this.state.showComments === true){
-        comments = <table>
-                        <tbody>
-                            {this.state.comments.map(comment => (
-                                <tr key={comment.id}>
-                                    <td>{comment.name}</td>
-                                    <td>{comment.body}</td>
-                                    <td>{comment.email}</td>
-                                </tr>
-                                ))}
-                        </tbody>
-                    </table>
+        comments = <div>
+                    {this.state.comments.map(comment => (
+                        <div key={comment.id}>
+                            <p>{comment.name}</p>
+                            <p>{comment.body}</p>
+                            <p>{comment.email}</p>
+                            <br/>
+                        </div>
+                        ))}
+                    </div>
                 }
+
+    const posts = <div>
+                    {this.state.posts.map(post => (
+                        <div key={post.id}>
+                            <p><b>{post.title}</b></p>
+                            <p>{post.body}</p>
+                            <br/>
+                        </div>
+                    ))}
+                </div>
 
     return (
         <div>
             <h4>Posts</h4>
             <Link to='/'>go to user list</Link>
-            <table>
-                <tbody>
-                    {this.state.posts.map(post => (
-                        <tr key={post.id}>
-                            <td>{post.body}</td>
-                            <td>{post.title}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            {posts}
             <br/>
             <button onClick={this.showCommentList}>{this.state.buttonTitle}</button>
             <br/>
