@@ -34,7 +34,7 @@ import { Link } from 'react-router-dom';
             <li>{this.state.userDetails.phone}</li>
             <li>{this.state.userDetails.website}</li>
             <li>
-              <Link to={`/users/posts/${this.state.userDetails.id}`}>Posts</Link>
+              <Link to={`/users/${this.state.userDetails.id}/posts`}>Posts</Link>
             </li>
           </ul>
         </div>
